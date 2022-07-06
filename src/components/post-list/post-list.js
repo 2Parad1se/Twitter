@@ -1,28 +1,32 @@
 import React from "react";
 import PostListItem from "../post-list-item";
 import './post-list.css';
+import {ListGroup, ListGroupItem } from 'reactstrap';
 
-const PostList = ({data}) => {
-    const postData = data;
-    console.log(postData);
-
-    const elements = postData.map( item => {
+const PostList = ({data, onDelete, onToggleImportant, onToggleLike}) => {
+    // console.log(onToggleImportant)
+    const elements = data.map( item => {
         // console.log(item.label, item.important);
         // console.log(elements);
         return (
-            <li key={item.id} className="list-group-item">
-                <PostListItem label={item.label} important={item.important} />
-                
-            </li>
+            <ListGroupItem key={item.id} className="">
+                    <PostListItem 
+                    label={item.label} 
+                    important={item.important}
+                    like = {item.like} 
+                    onDelete={() => onDelete(item.id)}
+                    onToggleImportant={() => onToggleImportant(item.id)}
+                    onToggleLike={() => onToggleLike(item.id)}
+                    />
+            </ListGroupItem>
         )
         
     })
     console.log(elements);
     return (
-        <ul className="app-list list-group">
+        <ListGroup className="app-list">
             {elements}
-            {/* 123 */}
-        </ul>
+        </ListGroup>
     )
 }
 
